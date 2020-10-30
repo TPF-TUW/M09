@@ -449,106 +449,109 @@ namespace M08
             }
             else
             {
-                StringBuilder sbSAVE = new StringBuilder();
-                string strCREATE = "0";
-                if (txeCREATE.Text.Trim() != "")
+                if (FUNC.msgQuiz("Confirm save data ?") == true)
                 {
-                    strCREATE = txeCREATE.Text.Trim();
-                }
-
-                //******** save ProductionCapacity table ************
-                string CUSTOMER = slueCustomer.EditValue.ToString();
-                string CATEGORY = glueCategory.EditValue.ToString();
-                string STYLEID = slueStyle.EditValue.ToString();
-
-                if (lblStatus.Text == "* Add Capacity")
-                {
-                    sbSAVE.Append(" INSERT INTO ProductionCapacity(OIDCUST, OIDGCATEGORY, OIDSTYLE, QTYPerHour, QTYPerDay, QTYPerOT, STDTimeCUT, STDTimePAD, STDTimeSEW, STDTimePACK, STDTime, ProductionStartDate, CreatedBy, CreatedDate) ");
-                    sbSAVE.Append("  VALUES('" + CUSTOMER + "', '" + CATEGORY + "', '" + STYLEID + "', '" + txe1Hr.Text.Trim() + "', '" + txe1Day.Text.Trim() + "', '" + txeOT.Text.Trim() + "', '" + txeCutting.Text.Trim() + "', '" + txePadPrint.Text.Trim() + "', '" + txeSewing.Text.Trim() + "', '" + txePacking.Text.Trim() + "', '" + txeStdTime.Text.Trim() + "', '" + Convert.ToDateTime(dteStart.Text).ToString("yyyy-MM-dd") + "', '" + strCREATE + "', GETDATE()) ");
-                }
-                else if (lblStatus.Text == "* Edit Capacity")
-                {
-                    sbSAVE.Append(" UPDATE ProductionCapacity SET ");
-                    sbSAVE.Append("  OIDCUST='" + CUSTOMER + "', OIDGCATEGORY='" + CATEGORY + "', OIDSTYLE='" + STYLEID + "', QTYPerHour='" + txe1Hr.Text.Trim() + "', QTYPerDay='" + txe1Day.Text.Trim() + "', ");
-                    sbSAVE.Append("  QTYPerOT='" + txeOT.Text.Trim() + "', STDTimeCUT='" + txeCutting.Text.Trim() + "', STDTimePAD='" + txePadPrint.Text.Trim() + "', STDTimeSEW='" + txeSewing.Text.Trim() + "', STDTimePACK='" + txePacking.Text.Trim() + "', ");
-                    sbSAVE.Append("  STDTime='" + txeStdTime.Text.Trim() + "', ProductionStartDate='" + Convert.ToDateTime(dteStart.Text).ToString("yyyy-MM-dd") + "' ");
-                    sbSAVE.Append(" WHERE (OIDPCAP = '" + txeID.Text.Trim() + "') ");
-                }
-
-                if (sbSAVE.Length > 0)
-                {
-                    try
+                    StringBuilder sbSAVE = new StringBuilder();
+                    string strCREATE = "0";
+                    if (txeCREATE.Text.Trim() != "")
                     {
-                        bool chkSAVE = new DBQuery(sbSAVE).runSQL();
-                        if (chkSAVE == true)
+                        strCREATE = txeCREATE.Text.Trim();
+                    }
+
+                    //******** save ProductionCapacity table ************
+                    string CUSTOMER = slueCustomer.EditValue.ToString();
+                    string CATEGORY = glueCategory.EditValue.ToString();
+                    string STYLEID = slueStyle.EditValue.ToString();
+
+                    if (lblStatus.Text == "* Add Capacity")
+                    {
+                        sbSAVE.Append(" INSERT INTO ProductionCapacity(OIDCUST, OIDGCATEGORY, OIDSTYLE, QTYPerHour, QTYPerDay, QTYPerOT, STDTimeCUT, STDTimePAD, STDTimeSEW, STDTimePACK, STDTime, ProductionStartDate, CreatedBy, CreatedDate) ");
+                        sbSAVE.Append("  VALUES('" + CUSTOMER + "', '" + CATEGORY + "', '" + STYLEID + "', '" + txe1Hr.Text.Trim() + "', '" + txe1Day.Text.Trim() + "', '" + txeOT.Text.Trim() + "', '" + txeCutting.Text.Trim() + "', '" + txePadPrint.Text.Trim() + "', '" + txeSewing.Text.Trim() + "', '" + txePacking.Text.Trim() + "', '" + txeStdTime.Text.Trim() + "', '" + Convert.ToDateTime(dteStart.Text).ToString("yyyy-MM-dd") + "', '" + strCREATE + "', GETDATE()) ");
+                    }
+                    else if (lblStatus.Text == "* Edit Capacity")
+                    {
+                        sbSAVE.Append(" UPDATE ProductionCapacity SET ");
+                        sbSAVE.Append("  OIDCUST='" + CUSTOMER + "', OIDGCATEGORY='" + CATEGORY + "', OIDSTYLE='" + STYLEID + "', QTYPerHour='" + txe1Hr.Text.Trim() + "', QTYPerDay='" + txe1Day.Text.Trim() + "', ");
+                        sbSAVE.Append("  QTYPerOT='" + txeOT.Text.Trim() + "', STDTimeCUT='" + txeCutting.Text.Trim() + "', STDTimePAD='" + txePadPrint.Text.Trim() + "', STDTimeSEW='" + txeSewing.Text.Trim() + "', STDTimePACK='" + txePacking.Text.Trim() + "', ");
+                        sbSAVE.Append("  STDTime='" + txeStdTime.Text.Trim() + "', ProductionStartDate='" + Convert.ToDateTime(dteStart.Text).ToString("yyyy-MM-dd") + "' ");
+                        sbSAVE.Append(" WHERE (OIDPCAP = '" + txeID.Text.Trim() + "') ");
+                    }
+
+                    if (sbSAVE.Length > 0)
+                    {
+                        try
                         {
-                            string strCAP = new DBQuery("SELECT TOP (1) OIDPCAP FROM ProductionCapacity WHERE (OIDCUST = '" + CUSTOMER + "') AND(OIDGCATEGORY = '" + CATEGORY + "') AND(OIDSTYLE = '" + STYLEID + "')").getString();
-
-                            if (strCAP != "") //Save ProductionCapacityLine
+                            bool chkSAVE = new DBQuery(sbSAVE).runSQL();
+                            if (chkSAVE == true)
                             {
-                                sbSAVE.Clear();
-                                StringBuilder sbSQL = new StringBuilder();
-                                sbSQL.Append("SELECT DISTINCT Branch ");
-                                sbSQL.Append("FROM   ProductionLine ");
-                                sbSQL.Append("ORDER BY Branch ");
-                                DataTable dtLINE = new DBQuery(sbSQL).getDataTable();
-                                foreach (DataRow row in dtLINE.Rows)
+                                string strCAP = new DBQuery("SELECT TOP (1) OIDPCAP FROM ProductionCapacity WHERE (OIDCUST = '" + CUSTOMER + "') AND(OIDGCATEGORY = '" + CATEGORY + "') AND(OIDSTYLE = '" + STYLEID + "')").getString();
+
+                                if (strCAP != "") //Save ProductionCapacityLine
                                 {
-                                    CheckedListBoxControl clb = this.Controls.Find("LN" + row["Branch"], true).FirstOrDefault() as CheckedListBoxControl;
-                                    if (clb != null)
+                                    sbSAVE.Clear();
+                                    StringBuilder sbSQL = new StringBuilder();
+                                    sbSQL.Append("SELECT DISTINCT Branch ");
+                                    sbSQL.Append("FROM   ProductionLine ");
+                                    sbSQL.Append("ORDER BY Branch ");
+                                    DataTable dtLINE = new DBQuery(sbSQL).getDataTable();
+                                    foreach (DataRow row in dtLINE.Rows)
                                     {
-                                        string strBRANCH = row["Branch"].ToString();
-                                        string strLINE = "";
-                                        int iCQC = 0;
-                                        foreach (DataRowView item in clb.CheckedItems)
+                                        CheckedListBoxControl clb = this.Controls.Find("LN" + row["Branch"], true).FirstOrDefault() as CheckedListBoxControl;
+                                        if (clb != null)
                                         {
-                                            if (iCQC != 0)
+                                            string strBRANCH = row["Branch"].ToString();
+                                            string strLINE = "";
+                                            int iCQC = 0;
+                                            foreach (DataRowView item in clb.CheckedItems)
                                             {
-                                                strLINE += ", ";
+                                                if (iCQC != 0)
+                                                {
+                                                    strLINE += ", ";
+                                                }
+                                                strLINE += "'" + item["LineName"].ToString() + "'";
+                                                sbSAVE.Append("IF NOT EXISTS(SELECT OIDLCAPLine FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "') AND (LINEID = '" + item["LineName"].ToString() + "')) ");
+                                                sbSAVE.Append(" BEGIN ");
+                                                sbSAVE.Append("  INSERT INTO ProductionCapacityLine(OIDCAP, OIDBranch, LINEID, CreatedBy, CreatedDate) ");
+                                                sbSAVE.Append("  VALUES('" + strCAP + "', '" + strBRANCH + "', '" + item["LineName"].ToString() + "', '" + strCREATE + "', GETDATE()) ");
+                                                sbSAVE.Append(" END ");
+                                                iCQC++;
                                             }
-                                            strLINE += "'" + item["LineName"].ToString() + "'";
-                                            sbSAVE.Append("IF NOT EXISTS(SELECT OIDLCAPLine FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "') AND (LINEID = '" + item["LineName"].ToString() + "')) ");
-                                            sbSAVE.Append(" BEGIN ");
-                                            sbSAVE.Append("  INSERT INTO ProductionCapacityLine(OIDCAP, OIDBranch, LINEID, CreatedBy, CreatedDate) ");
-                                            sbSAVE.Append("  VALUES('" + strCAP + "', '" + strBRANCH + "', '" + item["LineName"].ToString() + "', '" + strCREATE + "', GETDATE()) ");
-                                            sbSAVE.Append(" END ");
-                                            iCQC++;
-                                        }
 
-                                        if (strLINE == "")
-                                        {
-                                            sbSAVE.Append("DELETE FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "')  ");
-                                        }
-                                        else
-                                        {
-                                            sbSAVE.Append("DELETE FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "') AND (LINEID NOT IN (" + strLINE + "))  ");
+                                            if (strLINE == "")
+                                            {
+                                                sbSAVE.Append("DELETE FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "')  ");
+                                            }
+                                            else
+                                            {
+                                                sbSAVE.Append("DELETE FROM ProductionCapacityLine WHERE (OIDCAP = '" + strCAP + "') AND (OIDBranch = '" + strBRANCH + "') AND (LINEID NOT IN (" + strLINE + "))  ");
+                                            }
                                         }
                                     }
-                                }
 
 
-                                if (sbSAVE.Length > 0)
-                                {
-                                    //MessageBox.Show(sbSAVE.ToString());
-                                    try
+                                    if (sbSAVE.Length > 0)
                                     {
-                                        bool chkSAVECAPA = new DBQuery(sbSAVE).runSQL();
-                                        if (chkSAVECAPA == true)
+                                        //MessageBox.Show(sbSAVE.ToString());
+                                        try
                                         {
-                                            FUNC.msgInfo("Save complete.");
-                                            bbiNew.PerformClick();
+                                            bool chkSAVECAPA = new DBQuery(sbSAVE).runSQL();
+                                            if (chkSAVECAPA == true)
+                                            {
+                                                FUNC.msgInfo("Save complete.");
+                                                bbiNew.PerformClick();
+                                            }
                                         }
+                                        catch (Exception)
+                                        { }
                                     }
-                                    catch (Exception)
-                                    { }
+
                                 }
 
                             }
-
                         }
+                        catch (Exception)
+                        { }
                     }
-                    catch (Exception)
-                    { }
                 }
             }
         }
