@@ -290,14 +290,7 @@ namespace M08
 
         private void gvGarment_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
         {
-            lblStatus.Text = "* Edit Capacity";
-            lblStatus.ForeColor = Color.Red;
-
-            txeID.Text = gvCapacity.GetFocusedRowCellValue("CapacityID").ToString();
-
-            slueCustomer.EditValue = gvCapacity.GetFocusedRowCellValue("CustomerID").ToString();
-            glueCategory.EditValue = gvCapacity.GetFocusedRowCellValue("CategoryID").ToString();
-            slueStyle.EditValue = gvCapacity.GetFocusedRowCellValue("StyleID").ToString();
+            
         }
 
         private void slueCustomer_EditValueChanged(object sender, EventArgs e)
@@ -629,6 +622,22 @@ namespace M08
             {
                 dteStart.Focus();
             }
+        }
+
+        private void gvCapacity_RowClick(object sender, RowClickEventArgs e)
+        {
+            string CUSID = gvCapacity.GetFocusedRowCellValue("CustomerID").ToString();
+            string CATEID = gvCapacity.GetFocusedRowCellValue("CategoryID").ToString();
+            string STYLEID = gvCapacity.GetFocusedRowCellValue("StyleID").ToString();
+
+            lblStatus.Text = "* Edit Capacity";
+            lblStatus.ForeColor = Color.Red;
+
+            txeID.Text = gvCapacity.GetFocusedRowCellValue("CapacityID").ToString();
+
+            slueCustomer.EditValue = CUSID;
+            glueCategory.EditValue = CATEID;
+            slueStyle.EditValue = STYLEID;
         }
     }
 }
