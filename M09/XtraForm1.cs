@@ -642,5 +642,15 @@ namespace M08
             glueCategory.EditValue = CATEID;
             slueStyle.EditValue = STYLEID;
         }
+
+        private void bbiPrintPreview_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            gcCapacity.ShowPrintPreview();
+        }
+
+        private void bbiPrint_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            gcCapacity.Print();
+        }
     }
 }
