@@ -629,6 +629,8 @@ namespace M08
 
         private void gvCapacity_RowClick(object sender, RowClickEventArgs e)
         {
+            if (gvCapacity.IsFilterRow(e.RowHandle)) return;
+
             string CUSID = gvCapacity.GetFocusedRowCellValue("CustomerID").ToString();
             string CATEID = gvCapacity.GetFocusedRowCellValue("CategoryID").ToString();
             string STYLEID = gvCapacity.GetFocusedRowCellValue("StyleID").ToString();
