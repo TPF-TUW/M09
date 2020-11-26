@@ -790,6 +790,8 @@
             this.gridLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridLookUpEdit2View.Name = "gridLookUpEdit2View";
             this.gridLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridLookUpEdit2View.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridLookUpEdit2View.OptionsView.EnableAppearanceOddRow = true;
             this.gridLookUpEdit2View.OptionsView.ShowGroupPanel = false;
             // 
             // slueCustomer
@@ -811,6 +813,8 @@
             this.searchLookUpEdit3View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.searchLookUpEdit3View.Name = "searchLookUpEdit3View";
             this.searchLookUpEdit3View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.searchLookUpEdit3View.OptionsView.EnableAppearanceEvenRow = true;
+            this.searchLookUpEdit3View.OptionsView.EnableAppearanceOddRow = true;
             this.searchLookUpEdit3View.OptionsView.ShowGroupPanel = false;
             // 
             // slueStyle
@@ -833,6 +837,8 @@
             this.searchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.searchLookUpEdit2View.Name = "searchLookUpEdit2View";
             this.searchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.searchLookUpEdit2View.OptionsView.EnableAppearanceEvenRow = true;
+            this.searchLookUpEdit2View.OptionsView.EnableAppearanceOddRow = true;
             this.searchLookUpEdit2View.OptionsView.ShowGroupPanel = false;
             // 
             // lblStatus
